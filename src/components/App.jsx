@@ -21,8 +21,6 @@ export class App extends Component {
     loadMore: 0,
   };
 
-  handleCloseModal = this.handleCloseModal.bind(this);
-
   handleSubmit = evt => {
     evt.preventDefault();
 
@@ -101,7 +99,7 @@ export class App extends Component {
           alt={alt}
           url={url}
           isOpen={isOpen}
-          isClose={this.handleCloseModal}
+          isClose={this.handleCloseModal.bind(this)}
         />
         <GlobalStyle />
         <Toaster position="top-right" />
