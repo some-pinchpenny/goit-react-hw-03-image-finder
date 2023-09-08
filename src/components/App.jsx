@@ -10,16 +10,19 @@ import toast, { Toaster } from 'react-hot-toast';
 import { GallerryModal } from './Modal/Modal';
 
 export class App extends Component {
-  state = {
-    query: '',
-    images: [],
-    loading: false,
-    page: 1,
-    error: false,
-    perPage: 12,
-    isOpen: false,
-  };
-
+  constructor() {
+    super();
+    this.state = {
+      query: '',
+      images: [],
+      loading: false,
+      page: 1,
+      error: false,
+      perPage: 12,
+      isOpen: false,
+    };
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
   handleSubmit = evt => {
     evt.preventDefault();
 
@@ -30,6 +33,7 @@ export class App extends Component {
         query: `${Date.now()}/${evt.target.elements.query.value}`,
         images: [],
         page: 1,
+        isOpen: false,
       });
     }
   };
@@ -38,7 +42,7 @@ export class App extends Component {
     const { query, perPage, page, images } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
       try {
-        this.setState({ loading: true, error: false, isOpen: false });
+        this.setState({ loading: true, error: false });
         const allImages = await fetchImages(query, page, perPage);
 
         if (allImages.length === 0) {
@@ -72,9 +76,8 @@ export class App extends Component {
       url,
       alt,
     }));
-    console.log(this.state.isOpen);
   };
-  handleCloseModal = this.handleCloseModal.bind(this);
+
   handleCloseModal() {
     this.setState(({ isOpen }) => ({
       isOpen: !isOpen,
@@ -94,14 +97,12 @@ export class App extends Component {
         {loading && <Loader />}
         {error && <div>OPPS! THERE WAS AN ERROR!</div>}
         {isLoadBtn && <Button onClick={this.handleLoadMore} />}
-        {isOpen && (
-          <GallerryModal
-            alt={alt}
-            url={url}
-            isOpen={isOpen}
-            isClose={this.handleCloseModal}
-          />
-        )}
+        <GallerryModal
+          alt={alt}
+          url={url}
+          isOpen={isOpen}
+          isClose={this.handleCloseModal}
+        />
         <GlobalStyle />
         <Toaster position="top-right" />
       </Layout>
