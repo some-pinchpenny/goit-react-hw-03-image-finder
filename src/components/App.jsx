@@ -10,30 +10,29 @@ import toast, { Toaster } from 'react-hot-toast';
 import { GallerryModal } from './Modal/Modal';
 
 export class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      query: '',
-      images: [],
-      loading: false,
-      page: 1,
-      error: false,
-      perPage: 12,
-      isOpen: false,
-    };
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-  }
+  state = {
+    query: '',
+    images: [],
+    loading: false,
+    page: 1,
+    error: false,
+    perPage: 12,
+    isOpen: false,
+    loadMore: 0,
+  };
+
+  handleCloseModal = this.handleCloseModal.bind(this);
+
   handleSubmit = evt => {
     evt.preventDefault();
 
-    if (evt.target.elements.query.value === '') {
+    if (evt.target.elements.query.value.trim() === '') {
       toast.error('You have not entered anything!');
     } else {
       this.setState({
         query: `${Date.now()}/${evt.target.elements.query.value}`,
         images: [],
         page: 1,
-        isOpen: false,
       });
     }
   };
@@ -52,7 +51,8 @@ export class App extends Component {
         }
 
         this.setState({
-          images: [...images, ...allImages],
+          images: [...images, ...allImages.hits],
+          loadMore: this.state.page < Math.ceil(allImages.totalHits / 12),
         });
       } catch (error) {
         this.setState({
@@ -85,8 +85,8 @@ export class App extends Component {
   }
 
   render() {
-    const { images, loading, error, isOpen, url, alt } = this.state;
-    const isLoadBtn = !!(images.length > 0 && !loading);
+    const { images, loading, error, isOpen, url, alt, loadMore } = this.state;
+    const isLoadBtn = !!(images.length > 0 && !loading && loadMore);
 
     return (
       <Layout>
