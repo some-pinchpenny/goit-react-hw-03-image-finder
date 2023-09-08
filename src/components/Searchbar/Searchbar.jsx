@@ -13,7 +13,11 @@ export const Searchbar = ({ onSubmit }) => {
         <SearchButton type="submit">
           <RiSearch2Line size={'24px'} />
         </SearchButton>
-        <SearchInput type="text" name="query" />
+        <SearchInput
+          type="text"
+          name="query"
+          placeholder="Start typing here..."
+        />
       </SearchForm>
     </SearchbarWrapper>
   );

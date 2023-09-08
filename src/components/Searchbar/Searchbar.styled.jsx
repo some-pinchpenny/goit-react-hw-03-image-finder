@@ -14,7 +14,7 @@ export const SearchbarWrapper = styled.header`
   padding-top: 12px;
   padding-bottom: 12px;
   color: #fff;
-  background-color: #3f51b5;
+  background-color: #c46d87;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
@@ -42,22 +42,10 @@ export const SearchButton = styled.button`
   cursor: pointer;
   outline: none;
 
-  :hover {
-    opacity: 1;
+  &:hover {
+    color: #c24a6e;
   }
 `;
-
-// export const SearchBtnLable = styled.span`
-//   position: absolute;
-//   width: 1px;
-//   height: 1px;
-//   padding: 0;
-//   overflow: hidden;
-//   clip: rect(0, 0, 0, 0);
-//   white-space: nowrap;
-//   clip-path: inset(50%);
-//   border: 0;
-// `;
 
 export const SearchInput = styled.input`
   display: inline-block;
@@ -69,7 +57,7 @@ export const SearchInput = styled.input`
   padding-left: 4px;
   padding-right: 4px;
 
-  ::placeholder {
+  &::placeholder {
     font: inherit;
     font-size: 18px;
   }
