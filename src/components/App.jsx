@@ -101,6 +101,7 @@ export class App extends Component {
           isOpen={isOpen}
           isClose={this.handleCloseModal.bind(this)}
         />
+
         <GlobalStyle />
         <Toaster position="top-right" />
       </Layout>
